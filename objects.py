@@ -34,40 +34,40 @@ class head():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+        if keys[pygame.K_a] and self.type == 0:
+            self.dir = (-1, 0)
+        if keys[pygame.K_d] and self.type == 0:
+            self.dir = (1, 0)
         if keys[pygame.K_w] and self.type == 0:
-            self.dir[0] = -1
-        if keys[pygame.K_w] and self.type == 0:
-            self.dir[0] = 1
-        if keys[pygame.K_w] and self.type == 0:
-            self.dir[1] = -1
-        if keys[pygame.K_w] and self.type == 0:
-            self.dir[1] = 1
-        if keys[pygame.K_w] and self.type == 1:
-            self.dir[0] = -1
-        if keys[pygame.K_w] and self.type == 1:
-            self.dir[0] = 1
-        if keys[pygame.K_w] and self.type == 1:
-            self.dir[1] = -1
-        if keys[pygame.K_w] and self.type == 1:
-            self.dir[1] = 1
+            self.dir = (0, -1)
+        if keys[pygame.K_s] and self.type == 0:
+            self.dir = (0, 1)
+        if keys[pygame.K_LEFT] and self.type == 1:
+            self.dir = (-1, 0)
+        if keys[pygame.K_RIGHT] and self.type == 1:
+            self.dir = (1, 0)
+        if keys[pygame.K_UP] and self.type == 1:
+            self.dir = (0, -1)
+        if keys[pygame.K_DOWN] and self.type == 1:
+            self.dir = (0, 1)
 
-        self.pos[0] = self.pos[0] + self.dir[0]
-        self.pos[1] = self.pos[1] + self.dir[1]
+        e = self.pos[0] + self.dir[0]
+        t = self.pos[1] + self.dir[1]
+        self.pos = (e, t)
         NewWall = wall(self.cpos, self.colour, self.rows, self.winWidth)
         return NewWall
 
     def draw(self, win):
-        self.dis = self.size + 2
+        dis = self.size + 2
         t = (self.pos[0]*dis+1, self.pos[1]*dis+1, self.size, self.size)
         pygame.draw.rect(win, self.colour, t)
-        if eyes:
-            centre = dis//2
-            radius = 3
-            circleMiddle = (self.pos[0]*dis+centre-radius, self.pos[1]*dis+8)
-            circleMiddle2 = (self.pos[0]*dis + dis -
-                             radius*2, self.pos[1]*dis+8)
-            pygame.draw.circle(surface, (0, 0, 0), circleMiddle, radius)
-            pygame.draw.circle(surface, (0, 0, 0), circleMiddle2, radius)
+        centre = dis//2
+        radius = 3
+        circleMiddle = (self.pos[0]*dis+centre-radius, self.pos[1]*dis+8)
+        circleMiddle2 = (self.pos[0]*dis + dis -
+                         radius*2, self.pos[1]*dis+8)
+        pygame.draw.circle(win, (0, 0, 0), circleMiddle, radius)
+        pygame.draw.circle(win, (0, 0, 0), circleMiddle2, radius)
 
     def collision(self, walls):
         for i in walls:
