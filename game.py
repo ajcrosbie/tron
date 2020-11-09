@@ -47,10 +47,8 @@ def main():
             walls.append(player1.move(keys))
         if player2.life:
             walls.append(player2.move(keys))
-
         player1.collision(walls)
         player2.collision(walls)
-
         if not player1.life and not player2.life:
             player1.reset()
             player2.reset()
